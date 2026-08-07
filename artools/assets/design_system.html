@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aura Design System</title>
+  <script src="templates/digital-architect.aura.build/assets/resource_3fa48481346f.js"></script>
+  <script src="templates/digital-architect.aura.build/assets/iconify-icon_d39ffc6e4c56.js"></script>
+  <link href="templates/digital-architect.aura.build/assets/css2_19fd9cc6b396.css" rel="stylesheet" />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #050608;
+      --surface: rgba(255,255,255,0.08);
+      --surface-strong: rgba(255,255,255,0.12);
+      --text: #f4f5f8;
+      --text-soft: rgba(244,245,248,0.72);
+      --border: rgba(255,255,255,0.12);
+      --accent: #68e0ff;
+      --accent-strong: #5db3f9;
+      --brand: #2f3f7f;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top left, rgba(104,224,255,0.08), transparent 20%), radial-gradient(circle at bottom right, rgba(139,92,246,0.15), transparent 24%), var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    body::-webkit-scrollbar { display: none; }
+    .nav-load { opacity: 0; transform: translateY(-10px); transition: all 0.8s ease-out; }
+    .nav-load.loaded { opacity: 1; transform: translateY(0); }
+    .reveal { opacity: 0; transform: translateY(2rem); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .delay-100 { transition-delay: 0.1s; }
+    .delay-200 { transition-delay: 0.2s; }
+    .delay-300 { transition-delay: 0.3s; }
+    .delay-400 { transition-delay: 0.4s; }
+    .delay-500 { transition-delay: 0.5s; }
+    .delay-600 { transition-delay: 0.6s; }
+    .delay-700 { transition-delay: 0.7s; }
+    .text-reveal-wrapper { overflow: hidden; display: inline-block; vertical-align: bottom; }
+    .text-reveal-content { transform: translateY(110%); opacity: 0; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s ease; display: block; }
+    .reveal-active .text-reveal-content { transform: translateY(0); opacity: 1; }
+    .glass-panel { background: rgba(255,255,255,0.06); backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.12); }
+    .flashlight-card { position: relative; overflow: hidden; background: rgba(255,255,255,0.03); }
+    .flashlight-card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at var(--mouse-x,50%) var(--mouse-y,50%), rgba(255,255,255,0.25), transparent 40%); opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
+    .flashlight-card:hover::before { opacity: 1; }
+    .tooltip-box { opacity: 0; transform: translateY(10px) scale(0.95); pointer-events: none; transition: all 0.25s ease; position: absolute; left: 50%; top: 100%; transform-origin: top center; background: rgba(5,6,8,0.95); border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(18px); padding: 0.85rem 1rem; border-radius: 24px; width: max-content; max-width: 260px; color: #eef2ff; font-size: 0.82rem; line-height: 1.4; z-index: 10; }
+    .tooltip-box.visible { opacity: 1; transform: translateY(0) scale(1); }
+    .modal-backdrop { display: none; align-items: center; justify-content: center; position: fixed; inset: 0; z-index: 60; background: rgba(5,6,8,0.8); backdrop-filter: blur(10px); }
+    .modal-backdrop.open { display: flex; }
+    .modal-card { width: min(680px, calc(100% - 3rem)); border-radius: 34px; border: 1px solid rgba(255,255,255,0.1); background: rgba(10, 12, 18, 0.96); padding: 2.5rem; box-shadow: 0 40px 120px rgba(0,0,0,0.45); position: relative; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 0%, rgba(5,6,8,0.18) 30%, rgba(5,6,8,0.9) 100%); pointer-events: none; }
+    .hero-glow { box-shadow: 0 0 80px rgba(104,224,255,0.18); }
+    .section-surface { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); }
+    .color-token { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); }
+    .hero-badge { box-shadow: 0 0 40px rgba(255,255,255,0.12); }
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 0.65rem; border-radius: 9999px; padding: 0.9rem 1.8rem; font-weight: 700; background: linear-gradient(135deg, #68e0ff, #8b5cf6); color: #061018; box-shadow: 0 20px 70px rgba(104,224,255,0.2); transition: transform 0.25s ease, box-shadow 0.25s ease; }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 26px 86px rgba(104,224,255,0.28); }
+    .btn-secondary { display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; padding: 0.9rem 1.8rem; border: 1px solid rgba(255,255,255,0.16); background: rgba(255,255,255,0.06); color: #f8fafc; transition: background 0.25s ease, border-color 0.25s ease; }
+    .btn-secondary:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.22); }
+    .btn-ghost { display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; padding: 0.9rem 1.8rem; border: 1px solid rgba(104,224,255,0.35); background: transparent; color: #68e0ff; transition: background 0.25s ease; }
+    .btn-ghost:hover { background: rgba(104,224,255,0.08); }
+    .badge-soft { display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; padding: 0.65rem 1rem; background: rgba(104,224,255,0.12); color: #d7fbff; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; }
+    .badge-outline { display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; padding: 0.65rem 1rem; border: 1px solid rgba(255,255,255,0.18); color: #eef2ff; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; }
+    .glow-surface { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .animate-marquee { display: inline-block; padding-left: 100%; animation: marquee 30s linear infinite; }
+    .hero-grid { display: grid; gap: 1.5rem; }
+    @media (min-width: 1024px) { .hero-grid { grid-template-columns: 1.25fr .85fr; } }
+    .shadow-soft { box-shadow: 0 40px 120px rgba(255,255,255,0.08); }
+    .shadow-soft-dark { box-shadow: 0 40px 120px rgba(0,0,0,0.2); }
+    .bg-dark-surface { background: #06070f; }
+    .bg-dark-panel { background: #040507; }
+    .delay-1000 { transition-delay: 1s; }
+    .delay-900 { transition-delay: 0.9s; }
+
+  </style>
+</head>
+<body class="antialiased selection:bg-white/20 selection:text-white relative overflow-x-hidden">
+  <header class="sticky top-0 z-50 nav-load bg-black/40 border-b border-white/10 backdrop-blur-xl">
+    <div class="max-w-[1400px] mx-auto px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex flex-wrap items-center gap-6">
+        <a class="text-xs font-medium tracking-wide uppercase text-white/70 hover:text-white transition" href="#hero">Hero</a>
+        <a class="text-xs font-medium tracking-wide uppercase text-white/70 hover:text-white transition" href="#typography">Typography</a>
+        <a class="text-xs font-medium tracking-wide uppercase text-white/70 hover:text-white transition" href="#colors">Colors</a>
+        <a class="text-xs font-medium tracking-wide uppercase text-white/70 hover:text-white transition" href="#components">Components</a>
+      </div>
+      <div class="relative group flex items-center gap-2 pointer-events-none md:pointer-events-auto">
+        <iconify-icon icon="solar:atom-linear" class="text-xl text-white/90 group-hover:rotate-180 transition-transform duration-700"></iconify-icon>
+        <span class="font-bold tracking-tighter text-white text-lg">AURA SYSTEM</span>
+      </div>
+      <div class="flex flex-wrap items-center gap-4">
+        <a class="text-xs font-medium tracking-wide uppercase text-white/70 hover:text-white transition" href="#icons">Ícones</a>
+        <a class="text-xs font-medium tracking-wide uppercase text-white/70 hover:text-white transition" href="#motion">Motion</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-[1400px] mx-auto">
+    <section id="hero" class="relative overflow-hidden pt-10 lg:pt-16">
+      <div class="absolute inset-0" style="background: radial-gradient(circle at 10% 10%, rgba(104,224,255,0.18), transparent 18%), radial-gradient(circle at 90% 20%, rgba(139,92,246,0.16), transparent 20%), linear-gradient(180deg, rgba(5,6,8,0.45), rgba(5,6,8,0.9));"></div>
+      <div class="absolute inset-0 bg-cover bg-center opacity-40 filter grayscale contrast-125" style="background-image:url('templates/digital-architect.aura.build/assets/6c710de5-9712-4c8e-a7db-59ac54_b647957b5aa5.webp');"></div>
+      <div class="hero-overlay"></div>
+      <div class="relative z-10 max-w-[1240px] mx-auto px-6 pb-20">
+        <div class="hero-grid items-start gap-8">
+          <div class="space-y-8">
+            <span class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs uppercase tracking-wide text-white/75">Design System Demo</span>
+            <div class="space-y-3">
+              <h1 class="text-5xl md:text-7xl lg:text-8xl font-semibold leading-tight tracking-tight text-white">
+                <span class="text-reveal-wrapper block overflow-hidden"><span class="text-reveal-content delay-200">Aura</span></span>
+                <span class="text-reveal-wrapper block overflow-hidden"><span class="text-reveal-content delay-300">Digital</span></span>
+                <span class="text-reveal-wrapper block overflow-hidden"><span class="text-reveal-content delay-400 text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-white">System</span></span>
+              </h1>
+              <p class="max-w-2xl text-base md:text-lg leading-8 text-white/75 reveal delay-500">Uma primeira dobra que apresenta o poder do sistema: lettering transparente branco, glow de botões, múltiplas imagens em camadas, cards animados e um fundo rico em texturas.</p>
+            </div>
+            <div class="flex flex-wrap gap-4">
+              <button class="btn-primary">Ver Tokens</button>
+              <button class="btn-secondary">Explorar Componentes</button>
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            <div class="glass-panel rounded-3xl p-6 shadow-soft reveal delay-600">
+              <div class="relative overflow-hidden rounded-3xl">
+                <img src="templates/digital-architect.aura.build/assets/c7fa69dd-d7fb-48f2-a866-ef3663_f6b789593f38.webp" alt="Hero image" class="w-full h-80 object-cover rounded-3xl brightness-110 contrast-125" />
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/70 rounded-3xl"></div>
+                <div class="absolute bottom-6 left-6 rounded-3xl border border-white/15 bg-black/40 px-4 py-3 text-white/90 backdrop-blur-md">
+                  <span class="text-xs uppercase tracking-wide">Illustration</span>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-5">
+              <article class="glass-panel rounded-3xl p-5 border border-white/10 reveal delay-700">
+                <span class="text-xs uppercase tracking-widest text-cyan-300">Motion</span>
+                <h3 class="mt-4 text-2xl font-semibold text-white">Pulse</h3>
+                <p class="mt-3 text-sm text-white/60">Glow e entrada suave em cada item.</p>
+              </article>
+              <article class="glass-panel rounded-3xl p-5 border border-white/10 reveal delay-800">
+                <span class="text-xs uppercase tracking-widest text-violet-300">Lettering</span>
+                <h3 class="mt-4 text-2xl font-semibold text-white">Transparent</h3>
+                <p class="mt-3 text-sm text-white/60">Baseado no design-system branco e translúcido.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-12 grid gap-6 lg:grid-cols-2">
+          <div class="section-surface rounded-3xl p-6 shadow-soft-dark reveal delay-900">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs uppercase tracking-wide text-white/50">Showcase</span>
+              <iconify-icon icon="solar:layers-minimalistic-linear" class="text-2xl text-cyan-300"></iconify-icon>
+            </div>
+            <div class="space-y-4">
+              <div class="rounded-3xl border border-white/10 bg-white/5 p-4 flex items-center justify-between">
+                <div>
+                  <p class="text-xs uppercase tracking-wide text-white/50">Hero</p>
+                  <p class="font-semibold text-white">Lettering transparente</p>
+                </div>
+                <iconify-icon icon="solar:eye-linear" class="text-xl text-white/70"></iconify-icon>
+              </div>
+              <div class="rounded-3xl border border-white/10 bg-white/5 p-4 flex items-center justify-between">
+                <div>
+                  <p class="text-xs uppercase tracking-wide text-white/50">Buttons</p>
+                  <p class="font-semibold text-white">Glow interativo</p>
+                </div>
+                <iconify-icon icon="solar:rocket-linear" class="text-xl text-cyan-300"></iconify-icon>
+              </div>
+              <div class="rounded-3xl border border-white/10 bg-white/5 p-4 flex items-center justify-between">
+                <div>
+                  <p class="text-xs uppercase tracking-wide text-white/50">Background</p>
+                  <p class="font-semibold text-white">Texturas animadas</p>
+                </div>
+                <iconify-icon icon="solar:grid-dots-linear" class="text-xl text-violet-300"></iconify-icon>
+              </div>
+            </div>
+          </div>
+          <div class="section-surface rounded-3xl p-6 overflow-hidden relative reveal delay-1000">
+            <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-violet-500/10"></div>
+            <div class="relative space-y-4">
+              <span class="text-xs uppercase tracking-wide text-cyan-300">First fold</span>
+              <h2 class="text-3xl font-semibold text-white">Uma primeira dobra que respira motion.</h2>
+              <p class="text-white/60 leading-7">O hero demonstra como o design system pode atuar como vitrine de capacidades, com camadas de imagem, tipografia translúcida e interações de botão que brilham.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="typography" class="relative py-24 px-6 lg:px-12">
+      <div class="max-w-[1200px] mx-auto">
+        <div class="grid gap-8 lg:grid-cols-2 items-start">
+          <div class="space-y-4 reveal">
+            <span class="text-xs uppercase tracking-wide text-cyan-300">Tipografia</span>
+            <h2 class="text-5xl font-semibold tracking-tight text-white">Escala tipográfica e hierarquia</h2>
+            <p class="text-white/70 leading-7 max-w-2xl">Fontes principais, suporte monospace e padrões para todas as camadas de texto do sistema.</p>
+          </div>
+          <div class="glass-panel p-6 rounded-3xl border border-white/10 reveal delay-100">
+            <h3 class="text-sm uppercase tracking-wide text-cyan-300 mb-4">Font families</h3>
+            <ul class="space-y-3 text-white/70 text-sm leading-6">
+              <li><strong>Primary:</strong> Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif</li>
+              <li><strong>Secondary:</strong> Plus Jakarta Sans, Montserrat, Poppins, 'Space Grotesk'</li>
+              <li><strong>Monospace:</strong> Geist Mono, JetBrains Mono, monospace</li>
+              <li><strong>Strategy:</strong> local first, CDN fallback, weights 400/500/600/700/800</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-14 grid gap-6 lg:grid-cols-3">
+          <div class="glass-panel p-8 rounded-3xl border border-white/10 reveal delay-200">
+            <span class="text-xs uppercase tracking-wide text-white/50">H1</span>
+            <h1 class="mt-4 text-6xl leading-tight font-semibold text-white">Display Grande</h1>
+            <p class="mt-4 text-sm text-white/60">font-family: Inter; font-weight: 800; font-size: 64px; line-height: 1.05; letter-spacing: -0.04em; text-transform: none.</p>
+          </div>
+          <div class="glass-panel p-8 rounded-3xl border border-white/10 reveal delay-300">
+            <span class="text-xs uppercase tracking-wide text-white/50">H2</span>
+            <h2 class="mt-4 text-5xl leading-snug font-semibold text-white">Subtítulo</h2>
+            <p class="mt-4 text-sm text-white/60">font-family: Inter; font-weight: 700; font-size: 48px; line-height: 1.08; letter-spacing: -0.03em.</p>
+          </div>
+          <div class="glass-panel p-8 rounded-3xl border border-white/10 reveal delay-400">
+            <span class="text-xs uppercase tracking-wide text-white/50">Body</span>
+            <p class="mt-4 text-base leading-7 text-white">Texto padrão para parágrafos, notas e componentes.</p>
+            <p class="mt-4 text-sm text-white/60">font-weight: 400; font-size: 16px; line-height: 1.75; letter-spacing: 0.01em.</p>
+          </div>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-3">
+          <div class="glass-panel p-8 rounded-3xl border border-white/10 reveal delay-500">
+            <span class="text-xs uppercase tracking-wide text-white/50">body-lg</span>
+            <p class="mt-4 text-lg leading-8 text-white">Texto maior para chamadas e seções de destaque.</p>
+            <p class="mt-4 text-sm text-white/60">font-weight: 500; font-size: 18px; line-height: 1.7; letter-spacing: 0.01em.</p>
+          </div>
+          <div class="glass-panel p-8 rounded-3xl border border-white/10 reveal delay-600">
+            <span class="text-xs uppercase tracking-wide text-white/50">Caption</span>
+            <p class="mt-4 text-sm leading-6 text-white/70">Texto auxiliar, legendas e labels.</p>
+            <p class="mt-4 text-sm text-white/60">font-size: 12px; line-height: 1.4; letter-spacing: 0.12em.</p>
+          </div>
+          <div class="glass-panel p-8 rounded-3xl border border-white/10 reveal delay-700">
+            <span class="text-xs uppercase tracking-wide text-white/50">Helper</span>
+            <p class="mt-4 text-sm leading-6 text-white/70">Mensagens de suporte e instruções de interface.</p>
+            <p class="mt-4 text-sm text-white/60">font-weight: 400; text-transform: none; color: rgba(255,255,255,0.65).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="colors" class="relative py-24 px-6 lg:px-12 bg-dark-surface">
+      <div class="max-w-[1200px] mx-auto">
+        <div class="grid gap-8 lg:grid-cols-2">
+          <div class="space-y-4 reveal">
+            <span class="text-xs uppercase tracking-wide text-violet-300">Sistema de cores</span>
+            <h2 class="text-5xl font-semibold tracking-tight text-white">Paleta semântica para interfaces brancas e no modo escuro</h2>
+            <p class="text-white/70 leading-7 max-w-2xl">Tokens de cor definidos para texto, fundos, bordas, estados e feedback.</p>
+          </div>
+          <div class="glass-panel p-6 rounded-3xl border border-white/10 reveal delay-100">
+            <div class="space-y-4 text-sm text-white/70 leading-7">
+              <p><strong>Primary:</strong> #FFFFFF / rgb(255,255,255) / hsl(0,0%,100%) — texto, sobreposições</p>
+              <p><strong>Secondary:</strong> #2F3F7F / rgb(47,63,127) / hsl(231,46%,34%) — botões e links</p>
+              <p><strong>Accent:</strong> #68E0FF / rgb(104,224,255) / hsl(187,100%,64%) — action, highlights</p>
+              <p><strong>Neutral:</strong> #11131C / rgb(17,19,28) / hsl(226,36%,9%) — superfícies escuras</p>
+              <p><strong>Feedback:</strong> #00D07A / rgb(0,208,122) / hsl(161,100%,41%) e #FF5E7A / rgb(255,94,122) / hsl(346,100%,69%)</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-12 grid gap-6 lg:grid-cols-4">
+          <div class="color-token rounded-3xl p-6 reveal delay-200">
+            <div class="h-28 rounded-3xl mb-5 bg-white"></div>
+            <span class="text-xs uppercase tracking-wide text-white/50">Primary text</span>
+            <h4 class="mt-3 text-xl font-semibold text-white">Snow</h4>
+            <p class="mt-2 text-sm text-white/60">#FFFFFF / AAA</p>
+          </div>
+          <div class="color-token rounded-3xl p-6 reveal delay-300">
+            <div class="h-28 rounded-3xl mb-5 bg-[#11131C]"></div>
+            <span class="text-xs uppercase tracking-wide text-white/50">Background</span>
+            <h4 class="mt-3 text-xl font-semibold text-white">Void</h4>
+            <p class="mt-2 text-sm text-white/60">#11131C / AA</p>
+          </div>
+          <div class="color-token rounded-3xl p-6 reveal delay-400">
+            <div class="h-28 rounded-3xl mb-5 bg-gradient-to-br from-cyan-400 to-violet-500"></div>
+            <span class="text-xs uppercase tracking-wide text-white/50">Accent</span>
+            <h4 class="mt-3 text-xl font-semibold text-white">Electric</h4>
+            <p class="mt-2 text-sm text-white/60">#68E0FF / AAA</p>
+          </div>
+          <div class="color-token rounded-3xl p-6 reveal delay-500">
+            <div class="h-28 rounded-3xl mb-5 bg-[#FF5E7A]"></div>
+            <span class="text-xs uppercase tracking-wide text-white/50">Feedback</span>
+            <h4 class="mt-3 text-xl font-semibold text-white">Blush</h4>
+            <p class="mt-2 text-sm text-white/60">#FF5E7A / AAA</p>
+          </div>
+        </div>
+
+        <div class="mt-12 grid gap-6 lg:grid-cols-2">
+          <div class="glass-panel p-6 rounded-3xl border border-white/10 reveal delay-600">
+            <h3 class="text-lg font-semibold text-white mb-4">Opacity variants</h3>
+            <div class="space-y-3">
+              <div class="flex items-center gap-4">
+                <div class="w-16 h-16 rounded-3xl bg-white/90 border border-white/10"></div>
+                <div>
+                  <p class="text-sm text-white">White 90%</p>
+                  <p class="text-xs text-white/50">Cards, hover, texturas claras.</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-4">
+                <div class="w-16 h-16 rounded-3xl bg-white/12 border border-white/10"></div>
+                <div>
+                  <p class="text-sm text-white">White 12%</p>
+                  <p class="text-xs text-white/50">Overlay, sombras e fundos suaves.</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-4">
+                <div class="w-16 h-16 rounded-3xl bg-cyan-400/18 border border-cyan-400/20"></div>
+                <div>
+                  <p class="text-sm text-white">Accent 18%</p>
+                  <p class="text-xs text-white/50">Glows, progress bars, hover.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="glass-panel p-6 rounded-3xl border border-white/10 reveal delay-700">
+            <h3 class="text-lg font-semibold text-white mb-4">Gradient participation</h3>
+            <p class="text-white/70 leading-7">Use gradientes para backgrounds, botões e componentes decorativos. Combine `from-cyan-400 to-violet-500` com transparências suaves para profundidade.</p>
+            <div class="mt-6 space-y-3">
+              <span class="inline-flex rounded-full bg-gradient-to-r from-cyan-400 to-violet-500 px-4 py-3 text-sm text-slate-950 font-semibold">primary → accent</span>
+              <span class="inline-flex rounded-full bg-gradient-to-r from-white/10 to-white/5 px-4 py-3 text-sm text-white/70">neutral → surface</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="components" class="relative py-24 px-6 lg:px-12">
+      <div class="max-w-[1200px] mx-auto">
+        <div class="grid gap-8 lg:grid-cols-2 items-start">
+          <div class="space-y-4 reveal">
+            <span class="text-xs uppercase tracking-wide text-cyan-300">Componentes</span>
+            <h2 class="text-5xl font-semibold tracking-tight text-white">UI Components com animação</h2>
+            <p class="text-white/70 leading-7 max-w-2xl">Botões, inputs, cards, navbars, seções, modais, badges e tooltips com comportamento dinâmico.</p>
+          </div>
+          <div class="glass-panel p-6 rounded-3xl border border-white/10 reveal delay-100">
+            <p class="text-white/70">Cada componente deve ser claro, responsivo e usar motion para indicar estados e foco.</p>
+          </div>
+        </div>
+
+        <div class="mt-14 grid gap-6 lg:grid-cols-2">
+          <div class="glass-panel p-8 rounded-3xl border border-white/10 bg-black/10 reveal delay-200">
+            <h3 class="text-xl font-semibold text-white mb-6">Buttons</h3>
+            <div class="flex flex-wrap gap-4">
+              <button class="btn-primary">Primary</button>
+              <button class="btn-secondary">Secondary</button>
+              <button class="btn-ghost">Ghost</button>
+              <button class="btn-secondary" disabled style="opacity:.45; cursor:not-allowed;">Disabled</button>
+            </div>
+          </div>
+          <div class="glass-panel p-8 rounded-3xl border border-white/10 bg-black/10 reveal delay-300">
+            <h3 class="text-xl font-semibold text-white mb-6">Inputs</h3>
+            <div class="space-y-5">
+              <label class="block text-sm uppercase tracking-wide text-white/50">Nome</label>
+              <input type="text" placeholder="Digite seu nome" class="w-full rounded-full border border-white/15 bg-white/5 px-5 py-4 text-white placeholder:text-white/40 focus:border-cyan-400/80 focus:outline-none transition" />
+              <label class="block text-sm uppercase tracking-wide text-white/50">Email</label>
+              <input type="email" placeholder="exemplo@email.com" class="w-full rounded-full border border-white/15 bg-white/5 px-5 py-4 text-white placeholder:text-white/40 focus:border-violet-400/80 focus:outline-none transition" />
+              <label class="block text-sm uppercase tracking-wide text-white/50">Mensagem</label>
+              <textarea rows="4" placeholder="Mensagem breve" class="w-full rounded-3xl border border-white/15 bg-white/5 px-5 py-4 text-white placeholder:text-white/40 focus:border-cyan-400/80 focus:outline-none transition"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-3">
+          <div class="glass-panel p-8 rounded-3xl border border-white/10 bg-black/10 reveal delay-400">
+            <h3 class="text-xl font-semibold text-white mb-6">Cards</h3>
+            <div class="space-y-5">
+              <article class="flashlight-card rounded-2xl p-6 border border-white/10 shadow-soft-dark">
+                <span class="text-xs uppercase tracking-wide text-cyan-300">Product</span>
+                <h4 class="mt-4 text-2xl font-semibold text-white">Card com foco</h4>
+                <p class="mt-3 text-sm text-white/60 leading-6">Hover glow e sombreamento suave para destacar conteúdo.</p>
+              </article>
+              <article class="rounded-2xl p-6 border border-white/10 bg-white/5 backdrop-blur-xl">
+                <span class="text-xs uppercase tracking-wide text-white/50">Status</span>
+                <div class="mt-4 flex items-center gap-3">
+                  <div class="w-12 h-12 rounded-3xl bg-cyan-400/15 flex items-center justify-center text-cyan-300"><iconify-icon icon="solar:check-bold" class="text-xl"></iconify-icon></div>
+                  <div>
+                    <p class="text-white">Online</p>
+                    <span class="text-sm text-white/50">Pronto para uso.</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="glass-panel p-8 rounded-3xl border border-white/10 bg-black/10 reveal delay-500">
+            <h3 class="text-xl font-semibold text-white mb-6">Navbar</h3>
+            <nav class="flex flex-wrap items-center justify-between gap-4">
+              <ul class="flex flex-wrap gap-4 text-sm text-white/70">
+                <li><a href="#hero" class="hover:text-white transition">Hero</a></li>
+                <li><a href="#typography" class="hover:text-white transition">Typography</a></li>
+                <li><a href="#colors" class="hover:text-white transition">Colors</a></li>
+                <li><a href="#components" class="hover:text-white transition">Components</a></li>
+              </ul>
+              <button class="btn-secondary">Launch</button>
+            </nav>
+          </div>
+          <div class="glass-panel p-8 rounded-3xl border border-white/10 bg-black/10 reveal delay-600">
+            <h3 class="text-xl font-semibold text-white mb-6">Sections</h3>
+            <div class="space-y-4">
+              <div class="rounded-2xl bg-white/5 border border-white/10 p-5">
+                <p class="text-sm text-white/70">Sessões bem espaçadas com leitura tranquila.</p>
+              </div>
+              <div class="rounded-2xl bg-gradient-to-br from-white/5 to-white/10 border border-white/10 p-5">
+                <p class="text-sm text-white/70">Backdrops com gradiente para profundidade.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-3">
+          <div class="glass-panel p-8 rounded-3xl border border-white/10 bg-black/10 reveal delay-700">
+            <h3 class="text-xl font-semibold text-white mb-6">Badges</h3>
+            <div class="flex flex-wrap gap-3">
+              <span class="badge-soft">New</span>
+              <span class="badge-inline text-violet-200 inline-flex items-center gap-2 rounded-full bg-violet-500/12 px-4 py-2 text-xs uppercase tracking-wide">Draft</span>
+              <span class="badge-outline">System</span>
+            </div>
+          </div>
+          <div class="glass-panel p-8 rounded-3xl border border-white/10 bg-black/10 reveal delay-800">
+            <h3 class="text-xl font-semibold text-white mb-6">Tooltips</h3>
+            <div class="flex flex-wrap gap-4">
+              <div class="relative group inline-flex">
+                <button class="btn-secondary">Hover me</button>
+                <div class="tooltip-box">Tooltip com animação suave e texto explicativo.</div>
+              </div>
+              <div class="relative group inline-flex">
+                <button class="btn-secondary">Hint</button>
+                <div class="tooltip-box">Dica contextual dentro do design system.</div>
+              </div>
+            </div>
+          </div>
+          <div class="glass-panel p-8 rounded-3xl border border-white/10 bg-black/10 reveal delay-900">
+            <h3 class="text-xl font-semibold text-white mb-6">Modal</h3>
+            <button id="open-modal" class="btn-primary">Abrir modal</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="icons" class="relative py-24 px-6 lg:px-12 bg-dark-panel">
+      <div class="max-w-[1200px] mx-auto">
+        <div class="grid gap-8 lg:grid-cols-2 items-start">
+          <div class="space-y-4 reveal">
+            <span class="text-xs uppercase tracking-wide text-cyan-300">Ícones</span>
+            <h2 class="text-5xl font-semibold tracking-tight text-white">Iconografia e motion</h2>
+            <p class="text-white/70 leading-7 max-w-2xl">`iconify-icon` permite composição de ícones vetoriais com estados hover, rotações e brilho.</p>
+          </div>
+          <div class="glass-panel p-6 rounded-3xl border border-white/10 reveal delay-100">
+            <p class="text-white/70">Os ícones devem ser usados como elementos de apoio em botões, badges, cards e navegação leve.</p>
+          </div>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-3">
+          <div class="glass-panel p-8 rounded-3xl border border-white/10 bg-black/10 reveal delay-200">
+            <div class="flex items-center gap-4">
+              <div class="w-16 h-16 rounded-3xl bg-cyan-400/10 flex items-center justify-center text-cyan-300"><iconify-icon icon="solar:rocket-launch-linear" class="text-2xl"></iconify-icon></div>
+              <div>
+                <p class="font-semibold text-white">Ação</p>
+                <p class="text-sm text-white/60">Indicadores e estados.</p>
+              </div>
+            </div>
+          </div>
+          <div class="glass-panel p-8 rounded-3xl border border-white/10 bg-black/10 reveal delay-300">
+            <div class="flex items-center gap-4">
+              <div class="w-16 h-16 rounded-3xl bg-violet-400/10 flex items-center justify-center text-violet-300"><iconify-icon icon="solar:star-fall-linear" class="text-2xl"></iconify-icon></div>
+              <div>
+                <p class="font-semibold text-white">Status</p>
+                <p class="text-sm text-white/60">Feedback rápido com ícones.</p>
+              </div>
+            </div>
+          </div>
+          <div class="glass-panel p-8 rounded-3xl border border-white/10 bg-black/10 reveal delay-400">
+            <div class="flex items-center gap-4">
+              <div class="w-16 h-16 rounded-3xl bg-white/5 flex items-center justify-center text-white"><iconify-icon icon="solar:palette-linear" class="text-2xl"></iconify-icon></div>
+              <div>
+                <p class="font-semibold text-white">Brand</p>
+                <p class="text-sm text-white/60">Consistência visual em ícones.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="motion" class="relative py-24 px-6 lg:px-12">
+      <div class="max-w-[1200px] mx-auto">
+        <div class="grid gap-8 lg:grid-cols-2 items-start">
+          <div class="space-y-4 reveal">
+            <span class="text-xs uppercase tracking-wide text-cyan-300">Motion</span>
+            <h2 class="text-5xl font-semibold tracking-tight text-white">Animações que sustentam a experiência</h2>
+            <p class="text-white/70 leading-7 max-w-2xl">Tokens de motion claros e transições com surgimento, marquee, glow e hover state.</p>
+          </div>
+          <div class="glass-panel p-6 rounded-3xl border border-white/10 reveal delay-100">
+            <h3 class="text-lg font-semibold text-white mb-4">Priority</h3>
+            <ul class="space-y-3 text-white/70">
+              <li><strong>Fade-up:</strong> 1s ease-out</li>
+              <li><strong>Marquee:</strong> 30s linear infinite</li>
+              <li><strong>Pulse:</strong> 8s ease-in-out infinite</li>
+              <li><strong>Glow:</strong> 0.25s ease</li>
+              <li><strong>Hover:</strong> 0.2s transform/opacity</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <div class="glass-panel p-8 rounded-3xl border border-white/10 bg-black/10 reveal delay-200">
+            <h3 class="text-xl font-semibold text-white mb-6">Background & effect</h3>
+            <div class="space-y-4">
+              <div class="rounded-3xl border border-white/10 bg-white/5 p-5">
+                <p class="text-white/70">Fundo animado com camadas de gradiente e texturas translúcidas.</p>
+              </div>
+              <div class="rounded-3xl border border-white/10 bg-cyan-400/10 p-5">
+                <p class="text-white/70">Efeito de brilho no hover e surgimento de elementos.</p>
+              </div>
+            </div>
+          </div>
+          <div class="glass-panel p-8 rounded-3xl border border-white/10 bg-black/10 reveal delay-300">
+            <h3 class="text-xl font-semibold text-white mb-6">Component states</h3>
+            <div class="space-y-4">
+              <div class="rounded-3xl border border-white/10 bg-white/5 p-5">
+                <p class="text-white/70">Hover, focus, active e disabled definidos com contraste e sutileza.</p>
+              </div>
+              <div class="rounded-3xl border border-white/10 bg-white/5 p-5">
+                <p class="text-white/70">Botões e inputs com transições suaves e feedback instantâneo.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal-card">
+      <button id="closeModal" class="absolute right-6 top-6 text-white/60 hover:text-white transition"><iconify-icon icon="solar:close-circle-linear" class="text-3xl"></iconify-icon></button>
+      <span class="text-xs uppercase tracking-wide text-cyan-300">Modal design</span>
+      <h2 class="mt-4 text-3xl font-semibold text-white">Especificação do componente modal</h2>
+      <p class="mt-4 text-white/70 leading-7">O modal é parte do design system: fundo escuro translúcido, foco interno, espaçamento generoso e animação de surgimento.</p>
+      <div class="mt-8 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-5">
+          <p class="text-xs uppercase tracking-wide text-white/50 mb-2">Button</p>
+          <p class="text-sm text-white/70">Use classes como <code class="text-cyan-300">btn-primary</code> e <code class="text-cyan-300">btn-secondary</code>.</p>
+        </div>
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-5">
+          <p class="text-xs uppercase tracking-wide text-white/50 mb-2">Badge</p>
+          <p class="text-sm text-white/70">Use tokens para estados como <code class="text-cyan-300">badge-soft</code> e <code class="text-cyan-300">badge-outline</code>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('active');
+        });
+      }, { threshold: 0.2 });
+      reveals.forEach(el => observer.observe(el));
+
+      const modal = document.getElementById('modalBackdrop');
+      const openButton = document.getElementById('open-modal');
+      const closeButton = document.getElementById('closeModal');
+      if (openButton && closeButton && modal) {
+        openButton.addEventListener('click', () => modal.classList.add('open'));
+        closeButton.addEventListener('click', () => modal.classList.remove('open'));
+        modal.addEventListener('click', (event) => { if (event.target === modal) modal.classList.remove('open'); });
+      }
+
+      document.querySelectorAll('.tooltip-box').forEach(tip => {
+        const parent = tip.closest('.group');
+        if (!parent) return;
+        parent.addEventListener('mouseenter', () => tip.classList.add('visible'));
+        parent.addEventListener('mouseleave', () => tip.classList.remove('visible'));
+      });
+
+      const nav = document.querySelector('header');
+      setTimeout(() => nav?.classList.add('loaded'), 50);
+
+      document.body.addEventListener('mousemove', (event) => {
+        document.querySelectorAll('.flashlight-card').forEach(card => {
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty('--mouse-x', `${event.clientX - rect.left}px`);
+          card.style.setProperty('--mouse-y', `${event.clientY - rect.top}px`);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
