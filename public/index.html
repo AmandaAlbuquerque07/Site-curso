@@ -793,15 +793,26 @@
         }
         .site-header{
           height:70px;
-          padding:0 20px;
-          grid-template-columns:1fr auto
+          padding:0 16px;
+          grid-template-columns:minmax(0,1fr) auto auto;
+          column-gap:4px;
         }
         main{padding-top:70px}
         html{scroll-padding-top:86px}
-        .brand{font-size:16px}
-        .main-nav,
-        .social{display:none}
-        .mobile-toggle{display:block}
+        .brand{
+          gap:6px;
+          min-width:0;
+          font-size:clamp(10px,3vw,16px);
+          white-space:nowrap;
+        }
+        .main-nav{display:none}
+        .social{
+          display:flex;
+          gap:3px;
+        }
+        .social-link{width:30px;height:30px}
+        .social-link svg{width:15px;height:15px}
+        .mobile-toggle{display:block;width:34px;height:34px}
         .mobile-menu{
           position:fixed;
           z-index:19;
@@ -829,11 +840,7 @@
           text-decoration:none;
           text-transform:uppercase;
         }
-        .mobile-menu .mobile-social{
-          padding-top:17px;
-          display:flex;
-          gap:10px;
-        }
+        .mobile-menu .mobile-social{display:none}
         .menu-open .mobile-menu{
           clip-path:inset(0);
           pointer-events:auto;
