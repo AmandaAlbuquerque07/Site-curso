@@ -511,7 +511,7 @@
     }
 
     .about:before{
-      content:"SUA BELEZA, SEU TEMPO";
+      content:"SUA AUTOESTIMA MAIS ELEVADA";
       position:absolute;
       top:clamp(48px,7vw,92px);
       left:50%;
@@ -547,7 +547,11 @@
 
     .about-image{
       position:relative;
-      min-height:clamp(340px,39vw,530px);
+      /* aspect-ratio: 4 / 5; */
+      /* min-height:clamp(340px,39vw,530px); */
+      min-height: clamp(420px, 50vw, 650px);
+      /* width: 100%; 
+      max-width: 480px; */
       overflow:hidden;
       border-radius:2px;
       background:#78716c;
@@ -571,7 +575,9 @@
       transition:transform .8s var(--ease);
     }
 
-    .about-image:hover img{transform:scale(1.035)}
+    .about-image:hover img{
+        transform:scale(1.035);
+    }
 
     .about-copy{max-width:480px}
     .about-kicker{
@@ -959,9 +965,13 @@
           <div class="about-image"><img src="assets/EspacoDoSalao.jpeg" alt="Interior acolhedor do Studio Lídia Albuquerque" width="768" height="768" loading="lazy"></div>
           <div class="about-copy">
             <p class="about-kicker">Studio Lídia Albuquerque</p>
-            <h3>Beleza com técnica e presença.</h3>
-            <p>Desde 2002, Lídia constrói uma trajetória dedicada a revelar a beleza que já existe em cada pessoa. Em cada atendimento, escuta, cuidado e atenção aos detalhes guiam uma experiência feita para você.</p>
-            <p>Ao longo dos anos, especializou-se em mechas, cortes e terapia capilar — unindo atualização constante e um olhar sensível para criar resultados que respeitam sua essência.</p>
+            <!-- <h3>Beleza com técnica e presença.</h3> -->
+            <p>Sou Lídia Albuquerque, nascida e criada em Itabirito, casada e mãe de duas filhas. Minha história com a profissão começou em 2002, quando participei de um curso profissionalizante oferecido pelo Lions Clube de Itabirito. Hoje, tenho a alegria de retribuir esse início como voluntária coordenadora do curso de cabeleireira na mesma instituição.</p>
+            <p>Ao longo de mais de 20 anos de carreira, sempre busquei novos conhecimentos. Investi em cursos de mechas, colorimetria, terapia capilar, penteados e diversas outras técnicas, sempre em busca do melhor para cada cliente.</p>
+            <p>Mais do que transformar cabelos, cada atendimento deve ser um momento de cuidado, escuta e autoestima. Por isso, meu propósito é fazer com que cada cliente saia do salão não apenas com um resultado incrível, mas também mais confiante e bem consigo mesmo.</p>
+            <p>Agende seu horário e venha viver essa experiência comigo.</p>
+            <!-- <p>Desde 2002, Lídia constrói uma trajetória dedicada a revelar a beleza que já existe em cada pessoa. Em cada atendimento, escuta, cuidado e atenção aos detalhes guiam uma experiência feita para você.</p>
+            <p>Ao longo dos anos, especializou-se em mechas, cortes e terapia capilar — unindo atualização constante e um olhar sensível para criar resultados que respeitam sua essência.</p> -->
           </div>
         </div>
       </section>
@@ -981,7 +991,6 @@
           <article class="service-item"><span class="service-image"><img src="assets/TerapiaCapilar.jpeg" alt="Foto" width="1069" height="1425" loading="lazy"></span><h3 class="service-name">Terapia capilar</h3><p class="service-price">a partir de R$ 110</p></article>
           <article class="service-item"><span class="service-image"><img src="assets/modelo.jpeg" alt="Foto" width="1069" height="1425" loading="lazy"></span><h3 class="service-name">Relaxamento</h3><p class="service-price">a partir de R$ 180</p></article>
           <article class="service-item"><span class="service-image"><img src="assets/Alisamento.jpg" alt="Foto" width="1069" height="1425" loading="lazy"></span><h3 class="service-name">Alisamento</h3><p class="service-price">a partir de R$ 250</p></article>
-          <!-- <article class="service-item"><span class="service-image"><img src="assets/modelo.jpeg" alt="Foto" width="1069" height="1425" loading="lazy"></span><h3 class="service-name">Soltura de cachos</h3><p class="service-price">a partir de R$ 250</p></article> -->
         </div>
       </section>
       <section class="contact" id="contato" aria-labelledby="contact-title">
@@ -993,13 +1002,13 @@
           </div>
           <div class="contact-detail">
             <svg class="contact-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 10.2c0 5.3-8 10-8 10s-8-4.7-8-10a8 8 0 1 1 16 0Z" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="10.2" r="2.6" stroke="currentColor" stroke-width="1.5"/></svg>
-            <p><a href="https://maps.app.goo.gl/rnfPEbQyeHDM7BVb7" target="_blank" rel="noopener noreferrer">Itabirito, MG</a></p>
+            <p><a href="https://maps.app.goo.gl/RwtbqJ3fpmKnWHXF8" target="_blank" rel="noopener noreferrer">Itabirito, MG</a></p>
           </div>
         </div>
         <a class="whatsapp-cta" href="https://wa.me/5531988853835" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.4 11.7a8.3 8.3 0 0 1-12.3 7.25L4 20l1.15-3.94a8.3 8.3 0 1 1 15.25-4.36Z" stroke="currentColor" stroke-width="1.6"/><path d="M9.2 7.7c.2-.45.42-.46.65-.47h.55c.17 0 .4.06.5.36l.75 1.8c.08.2.06.4-.07.57l-.42.53c-.13.15-.27.3-.12.57.15.27.7 1.17 1.5 1.9 1.04.92 1.91 1.2 2.2 1.34.27.13.43.1.58-.07l.74-.87c.17-.2.35-.16.58-.08l1.85.87" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Chamar no WhatsApp</a>
         <div class="map-card">
           <iframe title="Localização do Studio Lídia Albuquerque em Itabirito" src="https://www.google.com/maps?q=Studio+L%C3%ADdia+Albuquerque,+Itabirito,+MG&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          <a class="map-link" href="https://maps.app.goo.gl/rnfPEbQyeHDM7BVb7" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 10.2c0 5.3-8 10-8 10s-8-4.7-8-10a8 8 0 1 1 16 0Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="10.2" r="2.6" fill="currentColor"/></svg><span>Abrir no Google Maps</span></a>
+          <a class="map-link" href="https://maps.app.goo.gl/RwtbqJ3fpmKnWHXF8" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 10.2c0 5.3-8 10-8 10s-8-4.7-8-10a8 8 0 1 1 16 0Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="10.2" r="2.6" fill="currentColor"/></svg><span>Abrir no Google Maps</span></a>
         </div>
       </section>
     </main>
