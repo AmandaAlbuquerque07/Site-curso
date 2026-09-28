@@ -1,29 +1,25 @@
-# Studio Lídia Albuquerque
+#Site Studio Lídia Albuquerque
 
-Landing page estática do Studio Lídia Albuquerque, em Itabirito, MG.
+Landing page estática do **Studio Lídia Albuquerque**, salão de beleza da minha mãe.
+O site foi desenvolvido como projeto de estudo do curso [Construindo sites profissionais com IA](https://hub.asimov.academy/curso/criando-sites-estaticos-com-ia/), da Asimov Academy.
 
-## Estrutura
+🔗 **Site no ar:** [[link](https://site-curso-one.vercel.app/)]
 
-```text
-public/
-├── index.html       # página publicada
-└── assets/          # imagens do site
-netlify.toml         # configuração de publicação no Netlify
-```
+## Sobre
+O curso ensina a criar sites estáticos com apoio de IA generativ. Em vez de fazer um exercício genérico como o curso propoẽ, apliquei o conteúdo estudado para desenvolver uma landing page para o salão de beleza da minha mãe. Portanto o site possui **os dados reais do Studio** (serviços, contatos, identidade do salão, etc).
 
-## Desenvolvimento local
+O projeto foi feito com a IA Codex integrada ao VS Code, usada como ferramenta de apoio para gerar e estruturar o código. Eu defini o conteúdo, a organização das seções e revisei o resultado.
 
-Não há dependências para instalar. Com Python 3:
+## Tecnologias
+- HTML, CSS e JavaScript
+- Codex (IA) no VS Code
+- Git e GitHub
+- Deploy: [Vercel](https://vercel.com/)
 
-```bash
-python3 -m http.server --directory public 8080
-```
+## Créditos
+- Curso: [Construindo sites profissionais com IA](https://hub.asimov.academy/curso/criando-sites-estaticos-com-ia/), Asimov Academy
+- Desenvolvido por [Amanda Carolina Chaves Albuquerque](https://github.com/AmandaAlbuquerque07)
+- Cliente e fonte dos dados: Lídia Albuquerque
 
-Abra `http://localhost:8080` no navegador.
-
-## Deploy
-
-- **Netlify:** conecte o repositório. A configuração em `netlify.toml` publica automaticamente a pasta `public`.
-- **GitHub Pages:** configure a publicação do conteúdo da pasta `public` (via GitHub Actions ou branch `gh-pages`).
-
-Antes de publicar, confira os links de WhatsApp, Instagram e Google Maps em `public/index.html`.
+## Licença
+Projeto de estudo com conteúdo real do Studio Lídia Albuquerque. Textos, imagens e marca pertencem ao salão.
